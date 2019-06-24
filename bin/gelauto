@@ -1,0 +1,52 @@
+#! /usr/bin/env ruby
+
+require 'gelauto'
+require 'gli'
+
+module Gelauto
+  module CLI
+    extend GLI::App
+
+    program_desc 'Automatically annotate methods with Sorbet type signatures.'
+
+    version Gelauto::VERSION
+
+    subcommand_option_handling :normal
+    default_command :run
+
+    desc 'Run the given command with Gelauto and optionally annotate files.'
+    command :run do |c|
+      c.desc 'Write discovered type signatures into Ruby files.'
+      c.default_value false
+      c.switch [:a, :annotate]
+
+      c.action do |global_options, options, args|
+        paths, _, cmd = args.chunk_while { |arg1, arg2| arg1 != '--' && arg2 != '--' }.to_a
+        Gelauto.paths += paths
+
+        exe = Gelauto::CLIUtils.which(cmd[0]) || cmd[0]
+        cmd.shift
+
+        old_argv = ARGV.dup
+
+        begin
+          Gelauto.setup
+          ARGV.replace(cmd)
+          load exe
+        ensure
+          Gelauto.teardown
+          ARGV.replace(old_argv)
+
+          if options[:annotate]
+            Gelauto.each_absolute_path do |path|
+              Gelauto.annotate_file(path)
+              Gelauto::Logger.info("Annotated #{path}")
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+exit Gelauto::CLI.run(ARGV)
