@@ -2,7 +2,7 @@ require 'gelauto/rspec'
 require 'pry-byebug'
 
 require_relative './image.rb'
-Gelauto.files << File.join(__dir__, 'image.rb')
+Gelauto.paths << File.join(__dir__, 'image.rb')
 
 describe Image do
   subject(:image) { described_class.new('foo.jpg', 800, 400) }
