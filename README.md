@@ -7,9 +7,9 @@ Automatically annotate your code with Sorbet type definitions.
 The wonderful folks at Stripe recently released a static type checker for Ruby called [Sorbet](https://github.com/sorbet/sorbet). It works by examining type signatures placed at the beginning of each method. For example:
 
 ```ruby
-class Car
-  # typed: true
+# typed: true
 
+class Car
   extend T::Sig
 
   sig { params(num_wheels: Integer) }

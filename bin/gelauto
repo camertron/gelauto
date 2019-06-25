@@ -42,6 +42,8 @@ module Gelauto
               Gelauto.annotate_file(path)
               Gelauto::Logger.info("Annotated #{path}")
             end
+          else
+            puts Gelauto::Rbi.new(Gelauto.method_index).to_s
           end
         end
       end

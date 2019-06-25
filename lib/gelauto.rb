@@ -11,8 +11,11 @@ module Gelauto
   autoload :Logger,      'gelauto/logger'
   autoload :MethodDef,   'gelauto/method_def'
   autoload :MethodIndex, 'gelauto/method_index'
+  autoload :Namespace,   'gelauto/namespace'
+  autoload :Rbi,         'gelauto/rbi'
   autoload :Type,        'gelauto/type'
   autoload :TypeSet,     'gelauto/type_set'
+  autoload :Utils,       'gelauto/utils'
   autoload :Var,         'gelauto/var'
 
   class << self
@@ -43,12 +46,8 @@ module Gelauto
       @paths ||= []
     end
 
-    def each_absolute_path
-      return to_enum(__method__) unless block_given?
-
-      paths.each do |path|
-        yield File.expand_path(path)
-      end
+    def each_absolute_path(&block)
+      Utils.each_absolute_path(paths, &block)
     end
 
     def register_type(type, handler)
