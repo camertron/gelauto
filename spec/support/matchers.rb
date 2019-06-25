@@ -23,7 +23,12 @@ module GelautoSpecs
 
         generics.each_pair do |generic_name, generic_type|
           type.generic_args[generic_name].merge!(
-            type_array_to_typeset(Array(generic_type))
+            case generic_type
+              when Hash
+                type_hash_to_typeset(generic_type)
+              else
+                type_array_to_typeset(Array(generic_type))
+            end
           )
         end
 
@@ -38,6 +43,8 @@ module GelautoSpecs
         case type_info
           when Hash
             typeset.merge!(type_hash_to_typeset(type_info))
+          when Array
+            typeset.merge!(type_array_to_typeset(type_info))
           else
             typeset << Gelauto::Type.new(type_info)
         end
@@ -82,7 +89,7 @@ module GelautoSpecs
 
     matcher :hand_back_void do
       match do |actual_md|
-        actual_md.to_sig.include?('.void')
+        actual_md.to_sig.end_with?('.void }')
       end
 
       failure_message do |actual_md|

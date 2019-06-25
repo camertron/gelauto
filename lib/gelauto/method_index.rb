@@ -9,9 +9,19 @@ module Gelauto
     def index_methods_in(path, ast)
       return unless ast
 
-      if ast.type == :def
-        args = ast.children[1].children.map { |c| c.children.first }
-        md = MethodDef.new(ast.children[0], args)
+      if ast.type == :def || ast.type == :defs
+        name = nil
+        args = nil
+
+        if ast.type == :def
+          name = ast.children[0]
+          args = ast.children[1].children.map { |c| c.children.first }
+        else
+          name = ast.children[1]
+          args = ast.children[2].children.map { |c| c.children.first }
+        end
+
+        md = MethodDef.new(name, args)
         index[path][ast.location.name.line] = md
 
         # point to start of method

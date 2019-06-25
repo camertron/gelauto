@@ -1,9 +1,5 @@
 module GelautoSpecs
   class Image
-    def self.path
-      __FILE__
-    end
-
     attr_reader :path, :width, :height
 
     def initialize(path, width, height)

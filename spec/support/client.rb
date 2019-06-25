@@ -13,10 +13,6 @@ module GelautoSpecs
   end
 
   class Client
-    def self.path
-      __FILE__
-    end
-
     attr_reader :url, :username
 
     def initialize(options = {})

@@ -1,0 +1,8 @@
+param1:
+  - item1
+  - item2
+  - item3:
+      nested1: foo
+      nested2:
+        - bar
+        - baz

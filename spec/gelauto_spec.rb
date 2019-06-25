@@ -55,4 +55,50 @@ describe Gelauto do
       expect(to_a).to hand_back(Array => { elem: [Integer, String] })
     end
   end
+
+  context 'with nested generic types' do
+    before do
+      Gelauto.discover do
+        GelautoSpecs::System.configure(YAML.load_file('spec/support/config.yml'))
+      end
+    end
+
+    it 'identifies signatures for System.configure' do
+      configure = get_indexed_method(GelautoSpecs::System, :configure)
+      expect(configure).to accept(
+        config: {
+          Hash => {
+            key: String,
+            value: [
+              {
+                Array => {
+                  elem: [
+                    String,
+                    {
+                      Hash => {
+                        key: String,
+                        value: {
+                          Hash => {
+                            key: String,
+                            value: [
+                              String,
+                              {
+                                Array => {
+                                  elem: String
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      )
+    end
+  end
 end

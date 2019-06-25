@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email    = ['camertron@gmail.com']
   s.homepage = 'http://github.com/camertron/gelauto'
 
-  s.description = s.summary = 'Automatically annotate your code with Sorbet type definitions by running your code.'
+  s.description = s.summary = 'Automatically annotate your code with Sorbet type definitions.'
   s.platform = Gem::Platform::RUBY
 
   s.add_dependency 'parser', '~> 2.6'
