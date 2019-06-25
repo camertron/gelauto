@@ -50,6 +50,8 @@ Like most RSpec test suites, let's assume ours is stored in the `spec/` director
 gelauto run --annotate $(find . -name '*.rb') -- bundle exec rspec spec/
 ```
 
+If you choose to run Gelauto without the `--annotate` flag, Gelauto will print results to standard output in [RBI format](https://sorbet.org/docs/rbi) and not modify any of your Ruby files.
+
 ### Gelauto in your Bundle
 
 If you would rather run Gelauto as part of your bundle, add it to your Gemfile like so:
@@ -114,9 +116,19 @@ Gelauto makes use of Ruby's [TracePoint API](https://ruby-doc.org/core-2.6/Trace
 
 "Doesn't that potentially make my code run slower?" is a question you might ask. Yes. Gelauto adds overhead to literally every Ruby method call, so your code will probably run quite a bit slower. For that reason you probably won't want to enable Gelauto in, for example, a production web application.
 
+## Known Limitations
+
+* Half-baked support for singleton (i.e. static) methods.
+* Gelauto does not annotate Ruby files with `# typed: true` comments or `extend T::Sig`.
+* Gelauto ignores existing type signatures and will simply add another one right above the method.
+
 ## Running Tests
 
 `bundle exec rspec` should do the trick :)
+
+## Contributing
+
+Please fork this repo and submit a pull request.
 
 ## License
 
