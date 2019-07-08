@@ -1,6 +1,7 @@
 #! /usr/bin/env ruby
 
 require 'gelauto'
+require 'gelauto/version'
 require 'gli'
 
 module Gelauto
