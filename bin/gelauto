@@ -29,6 +29,7 @@ module Gelauto
         cmd.shift
 
         old_argv = ARGV.dup
+        old_path = $:.dup
 
         begin
           Gelauto.setup
@@ -37,6 +38,7 @@ module Gelauto
         ensure
           Gelauto.teardown
           ARGV.replace(old_argv)
+          $:.replace(old_path)
 
           if options[:annotate]
             Gelauto.each_absolute_path do |path|
