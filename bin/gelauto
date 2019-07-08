@@ -15,11 +15,19 @@ module Gelauto
     subcommand_option_handling :normal
     default_command :run
 
+    desc 'Silence log output.'
+    default_value false
+    switch [:s, :silent]
+
     desc 'Run the given command with Gelauto and optionally annotate files.'
     command :run do |c|
       c.desc 'Write discovered type signatures into Ruby files.'
       c.default_value false
       c.switch [:a, :annotate]
+
+      c.desc 'Print type signatures to STDOUT in RBI format. Ignores --silent.'
+      c.default_value false
+      c.switch [:r, :rbi]
 
       c.action do |global_options, options, args|
         paths, _, cmd = args.chunk_while { |arg1, arg2| arg1 != '--' && arg2 != '--' }.to_a
@@ -45,11 +53,21 @@ module Gelauto
               Gelauto.annotate_file(path)
               Gelauto::Logger.info("Annotated #{path}")
             end
-          else
+          end
+
+          if options[:rbi]
             puts Gelauto::Rbi.new(Gelauto.method_index).to_s
           end
         end
       end
+    end
+
+    pre do |global_options, _command, _options, _args|
+      if global_options[:silent]
+        Gelauto.logger = Gelauto::NullLogger.new
+      end
+
+      true
     end
   end
 end

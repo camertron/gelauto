@@ -1,3 +1,8 @@
+# 1.1.0
+* Print log output to STDERR.
+* Add global --silent CLI option to quash all Gelauto log output.
+* Add `--rbi` flag to `run` subcommand to separate RBI output functionality from file annotation.
+
 # 1.0.2
 * Correctly restore Ruby load path after command execution.
 

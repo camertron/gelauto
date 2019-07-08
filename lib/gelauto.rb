@@ -12,6 +12,7 @@ module Gelauto
   autoload :MethodDef,   'gelauto/method_def'
   autoload :MethodIndex, 'gelauto/method_index'
   autoload :Namespace,   'gelauto/namespace'
+  autoload :NullLogger,  'gelauto/null_logger'
   autoload :Rbi,         'gelauto/rbi'
   autoload :Type,        'gelauto/type'
   autoload :TypeSet,     'gelauto/type_set'
@@ -68,7 +69,7 @@ module Gelauto
     end
 
     def logger
-      @logger ||= ::Logger.new(STDOUT)
+      @logger ||= ::Logger.new(STDERR)
     end
 
     private
