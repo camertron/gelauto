@@ -1,4 +1,4 @@
-## gelauto [![Build Status](https://secure.travis-ci.org/camertron/gelauto.png?branch=master)](http://travis-ci.org/camertron/gelauto)
+## gelauto [![Build Status](https://travis-ci.com/camertron/gelauto.svg?branch=master)](https://travis-ci.com/camertron/gelauto)
 
 Automatically annotate your code with Sorbet type definitions.
 
