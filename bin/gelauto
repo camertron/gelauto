@@ -72,4 +72,8 @@ module Gelauto
   end
 end
 
-exit Gelauto::CLI.run(ARGV)
+if ARGF.argv.count == 0
+  puts "Example Usage: gelauto [ -- silent ] run [ --annotate ] [ -rbi ] $(find . -name '*.rb') -- bundle exec rspec spec/"
+else 
+  exit Gelauto::CLI.run(ARGV)
+end 
