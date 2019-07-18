@@ -24,6 +24,7 @@ module Gelauto
         components << "returns(#{return_types.to_sig})"
       end
 
+      "extend T::Sig"
       "sig { #{components.join('.')} }"
     end
 
