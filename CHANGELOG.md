@@ -1,3 +1,6 @@
+# 1.2.0
+* Print example usage and global help if CLI is run with no arguments.
+
 # 1.1.0
 * Print log output to STDERR.
 * Add global --silent CLI option to quash all Gelauto log output.
