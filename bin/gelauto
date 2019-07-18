@@ -6,6 +6,11 @@ require 'gli'
 
 module Gelauto
   module CLI
+    def self.print_global_help
+      puts "\nExample Usage: gelauto [ --silent ] run [ --annotate ] [ --rbi ] $(find . -name '*.rb') -- bundle exec rspec spec/\n\n"
+      commands[:help].execute({}, {}, [])
+    end
+
     extend GLI::App
 
     program_desc 'Automatically annotate methods with Sorbet type signatures.'
@@ -72,8 +77,9 @@ module Gelauto
   end
 end
 
-if ARGF.argv.count == 0
-  puts "Example Usage: gelauto [ -- silent ] run [ --annotate ] [ -rbi ] $(find . -name '*.rb') -- bundle exec rspec spec/"
-else 
-  exit Gelauto::CLI.run(ARGV)
-end 
+if ARGV.empty?
+  Gelauto::CLI.print_global_help
+  exit 1
+end
+
+exit Gelauto::CLI.run(ARGV)
