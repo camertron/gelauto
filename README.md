@@ -1,4 +1,4 @@
-## gelauto [![Build Status](https://secure.travis-ci.org/camertron/gelauto.png?branch=master)](http://travis-ci.org/camertron/gelauto)
+## gelauto [![Build Status](https://travis-ci.com/camertron/gelauto.svg?branch=master)](https://travis-ci.com/camertron/gelauto)
 
 Automatically annotate your code with Sorbet type definitions.
 
@@ -50,7 +50,7 @@ Like most RSpec test suites, let's assume ours is stored in the `spec/` director
 gelauto run --annotate $(find . -name '*.rb') -- bundle exec rspec spec/
 ```
 
-If you choose to run Gelauto without the `--annotate` flag, Gelauto will print results to standard output in [RBI format](https://sorbet.org/docs/rbi) and not modify any of your Ruby files.
+You can also choose to run Gelauto with the `--rbi` flag, which will cause Gelauto to print results to standard output in [RBI format](https://sorbet.org/docs/rbi).
 
 ### Gelauto in your Bundle
 
