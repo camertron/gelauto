@@ -1,3 +1,6 @@
+# 1.3.0
+* Add `GELAUTO_FILES` and `GELAUTO_ANNOTATE` environment variables to RSpec helper.
+
 # 1.2.0
 * Print example usage and global help if CLI is run with no arguments.
 

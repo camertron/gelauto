@@ -109,13 +109,23 @@ end
 
 #### RSpec Helper
 
-Gelauto comes with a handy RSpec helper that can do all this for you. Simply add
+Gelauto comes with a handy RSpec helper that can do most of this for you. Simply add
 
 ```ruby
 require 'gelauto/rspec'
 ```
 
-to your spec_helper.rb, Rakefile, or wherever RSpec is configured.
+to your spec_helper.rb, Rakefile, or wherever RSpec is configured. You'll also need to set the `GELAUTO_FILES` environment variable when running your test suite. For example:
+
+```bash
+GELAUTO_FILES=$(find ./lib -name *.rb) bundle exec rspec
+```
+
+Files can be separated by spaces, newlines, or commas. Finally, if you want Gelauto to annotate them, set `GELAUTO_ANNOTATE` to `true`, eg:
+
+```bash
+GELAUTO_FILES=$(find ./lib -name *.rb) GELAUTO_ANNOTATE=true bundle exec rspec
+```
 
 ## How does it Work?
 
