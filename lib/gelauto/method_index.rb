@@ -68,11 +68,7 @@ module Gelauto
       mds = index[path]
 
       [].tap do |annotated|
-        last_class_index = nil
         lines.each_with_index do |line, idx|
-          if line.start_with?("class") || line.start_with?("module")
-            last_class_index = idx
-          end
           lineno = idx + 1
           md = mds[lineno]
 
@@ -81,11 +77,6 @@ module Gelauto
 
             indent = line[0...line.index(/[^\s]/)]
             annotated << "#{indent}#{md.to_sig}"
-
-            unless last_class_index.nil?
-              annotated.insert(last_class_index + 1, "#{indent}extend T::Sig")
-              last_class_index = nil
-            end
           end
 
           annotated << line
