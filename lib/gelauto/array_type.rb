@@ -12,7 +12,7 @@ module Gelauto
 
     def to_sig
       if self[:elem].empty?
-        'T::Array'
+        'T::Array[T.untyped]'
       else
         "T::Array[#{self[:elem].to_sig}]"
       end
