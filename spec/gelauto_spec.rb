@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Gelauto do
@@ -20,6 +22,30 @@ describe Gelauto do
 
       aspect_ratio = get_indexed_method(img, :aspect_ratio)
       expect(aspect_ratio).to hand_back(Float)
+    end
+  end
+
+  context 'with Sorbet generic types' do
+    it 'uses T.nilable with T.any correctly' do
+      Gelauto.discover do
+        GelautoSpecs::Utility.safe_to_string(nil)
+        GelautoSpecs::Utility.safe_to_string(1.0)
+        GelautoSpecs::Utility.safe_to_string(2)
+      end
+
+      safe_to_string = get_indexed_method(GelautoSpecs::Utility, :safe_to_string)
+      expect(safe_to_string.to_sig).to include('input: T.nilable(T.any(Float, Integer))')
+      expect(safe_to_string.to_sig).to include('returns(String')
+    end
+
+    it 'uses T.Hash and T::Array with T.untyped correctly' do
+      Gelauto.discover do
+        GelautoSpecs::Utility.safe_get_keys({})
+      end
+
+      safe_get_keys = get_indexed_method(GelautoSpecs::Utility, :safe_get_keys)
+      expect(safe_get_keys.to_sig).to include('input: T::Hash[T.untyped, T.untyped]')
+      expect(safe_get_keys.to_sig).to include('returns(T::Array[T.untyped])')
     end
   end
 
