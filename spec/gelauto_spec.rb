@@ -34,8 +34,7 @@ describe Gelauto do
       end
 
       safe_to_string = get_indexed_method(GelautoSpecs::Utility, :safe_to_string)
-      expect(safe_to_string.to_sig).to include('input: T.nilable(T.any(Float, Integer))')
-      expect(safe_to_string.to_sig).to include('returns(String')
+      expect(safe_to_string.to_sig).to eq('sig { params(input: T.nilable(T.any(Float, Integer))).returns(String) }')
     end
 
     it 'uses T.Hash and T::Array with T.untyped correctly' do
@@ -44,8 +43,7 @@ describe Gelauto do
       end
 
       safe_get_keys = get_indexed_method(GelautoSpecs::Utility, :safe_get_keys)
-      expect(safe_get_keys.to_sig).to include('input: T::Hash[T.untyped, T.untyped]')
-      expect(safe_get_keys.to_sig).to include('returns(T::Array[T.untyped])')
+      expect(safe_get_keys.to_sig).to eq('sig { params(input: T::Hash[T.untyped, T.untyped]).returns(T::Array[T.untyped]) }')
     end
   end
 
