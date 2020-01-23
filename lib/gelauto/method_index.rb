@@ -78,9 +78,7 @@ module Gelauto
           lineno = idx + 1
           md = mds[lineno]
 
-          if md.is_a?(MethodDef)
-            next if sigs[idx]
-
+          if md.is_a?(MethodDef) && !sigs[idx]
             indent = line[0...line.index(/[^\s]/)]
             annotated << "#{indent}#{md.to_sig}"
           end
