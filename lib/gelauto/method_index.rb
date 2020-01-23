@@ -1,9 +1,10 @@
 module Gelauto
   class MethodIndex
-    attr_reader :index
+    attr_reader :index, :sig_index
 
     def initialize
       @index = Hash.new { |h, k| h[k] = {} }
+      @sig_index = Hash.new { |h, k| h[k] = {} }
     end
 
     def index_methods_in(path, ast, nesting = [])
@@ -31,6 +32,10 @@ module Gelauto
         when :class, :module
           const_name = ast.children.first.children.last
           return visit_children(path, ast, nesting + [Namespace.new(const_name, ast.type)])
+        when :block
+          if ast.children.first.children.last == :sig
+            sig_index[path][ast.location.line] = true
+          end
       end
 
       visit_children(path, ast, nesting)
@@ -66,6 +71,7 @@ module Gelauto
     def annotate(path, code)
       lines = code.split(/\r?\n/)
       mds = index[path]
+      sigs = sig_index[path]
 
       [].tap do |annotated|
         lines.each_with_index do |line, idx|
@@ -73,7 +79,7 @@ module Gelauto
           md = mds[lineno]
 
           if md.is_a?(MethodDef)
-            next if lines[idx-1].include?('sig')
+            next if sigs[idx]
 
             indent = line[0...line.index(/[^\s]/)]
             annotated << "#{indent}#{md.to_sig}"

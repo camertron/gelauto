@@ -56,6 +56,18 @@ describe Gelauto do
     end
   end
 
+  context 'does not double add sigs' do
+    before do
+      Gelauto.discover do
+        @request = GelautoSpecs::Request.new("Hello", "World")
+      end
+    end
+    it "does not double add sigs but adds new one" do
+      annotated = annotate(@request, :initialize, File.read('spec/support/client.rb'))
+      byebug
+    end
+  end
+
   context 'with nested generic types' do
     before do
       Gelauto.discover do
