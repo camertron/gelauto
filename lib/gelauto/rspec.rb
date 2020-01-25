@@ -15,5 +15,15 @@ RSpec.configure do |config|
         Gelauto::Logger.info("Annotated #{path}")
       end
     end
+
+    if ENV['GELAUTO_RBI']
+      rbi_str = Gelauto::Rbi.new(Gelauto.method_index).to_s
+
+      if ENV['GELAUTO_RBI'] == '-'
+        puts rbi_str
+      else
+        File.write(ENV['GELAUTO_RBI'], rbi_str)
+      end
+    end
   end
 end

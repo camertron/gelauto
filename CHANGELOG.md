@@ -1,3 +1,7 @@
+# 2.0.0
+* Fix emission of `T::Array`, `T::Hash`, and `T.any` types (@wpride, #14).
+* BREAKING: Add ability to write RBI output to a file via the `--rbi` flag. `--rbi` used to be a switch, but now it's a flag that accepts either a file path or `-` for STDOUT.
+
 # 1.3.0
 * Add `GELAUTO_FILES` and `GELAUTO_ANNOTATE` environment variables to RSpec helper.
 

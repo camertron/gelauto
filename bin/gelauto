@@ -1,5 +1,7 @@
 #! /usr/bin/env ruby
 
+$:.push(File.expand_path(File.join(%w(.. lib)), __dir__))
+
 require 'gelauto'
 require 'gelauto/version'
 require 'gli'
@@ -31,10 +33,25 @@ module Gelauto
       c.switch [:a, :annotate]
 
       c.desc 'Print type signatures to STDOUT in RBI format. Ignores --silent.'
-      c.default_value false
-      c.switch [:r, :rbi]
+      c.flag [:r, :rbi], type: String
+
+      c.desc 'Change into the given directory before running the command.'
+      c.default_value '.'
+      c.flag [:d, :dir], type: String
 
       c.action do |global_options, options, args|
+        if options[:rbi] && options[:rbi] != '-'
+          dir = File.dirname(options[:rbi])
+
+          unless File.exist?(dir)
+            puts "--rbi: #{dir} does not exist :("
+          end
+        end
+
+        unless File.exist?(options[:dir])
+          puts "--dir: #{options[:dir]} does not exist :("
+        end
+
         paths, _, cmd = args.chunk_while { |arg1, arg2| arg1 != '--' && arg2 != '--' }.to_a
         Gelauto.paths += paths
 
@@ -47,6 +64,7 @@ module Gelauto
         begin
           Gelauto.setup
           ARGV.replace(cmd)
+          Dir.chdir(options[:dir])
           load exe
         ensure
           Gelauto.teardown
@@ -61,7 +79,13 @@ module Gelauto
           end
 
           if options[:rbi]
-            puts Gelauto::Rbi.new(Gelauto.method_index).to_s
+            rbi_str = Gelauto::Rbi.new(Gelauto.method_index).to_s
+
+            if options[:rbi] == '-'
+              puts rbi_str
+            else
+              File.write(options[:rbi], rbi_str)
+            end
           end
         end
       end

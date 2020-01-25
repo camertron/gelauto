@@ -51,7 +51,15 @@ Like most RSpec test suites, let's assume ours is stored in the `spec/` director
 gelauto run --annotate $(find . -name '*.rb') -- bundle exec rspec spec/
 ```
 
-You can also choose to run Gelauto with the `--rbi` flag, which will cause Gelauto to print results to standard output in [RBI format](https://sorbet.org/docs/rbi).
+You can also choose to run Gelauto with the `--rbi` flag, which will cause Gelauto to print results to standard output or to a file in [RBI format](https://sorbet.org/docs/rbi):
+
+```bash
+# print RBI output to STDOUT
+gelauto run --annotate --rbi - $(find . -name '*.rb') -- bundle exec rspec spec/
+
+# write RBI output to a file
+gelauto run --annotate --rbi ./rbi/mylib.rbi $(find . -name '*.rb') -- bundle exec rspec spec/
+```
 
 In this second example, we're going to be running a minitest test suite. Like most minitest suites, let's assume ours is stored in the `test/` directory (that's the Rails default too). To run the test suite in `test/`, we might run the following command:
 
@@ -121,11 +129,13 @@ to your spec_helper.rb, Rakefile, or wherever RSpec is configured. You'll also n
 GELAUTO_FILES=$(find ./lib -name *.rb) bundle exec rspec
 ```
 
-Files can be separated by spaces, newlines, or commas. Finally, if you want Gelauto to annotate them, set `GELAUTO_ANNOTATE` to `true`, eg:
+Files can be separated by spaces, newlines, or commas. If you want Gelauto to annotate them, set `GELAUTO_ANNOTATE` to `true`, eg:
 
 ```bash
 GELAUTO_FILES=$(find ./lib -name *.rb) GELAUTO_ANNOTATE=true bundle exec rspec
 ```
+
+Finally, set `GELAUTO_RBI=/path/to/output.rbi` to have Gelauto emit an RBI file when the test suite finishes.
 
 ## How does it Work?
 
