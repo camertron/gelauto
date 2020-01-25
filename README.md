@@ -45,13 +45,13 @@ First, install the gem by running `gem install gelauto`. That will make the `gel
 Gelauto's only subcommand is `run`, which accepts a list of Ruby files to scan for methods and a command to run that will exercise your code.
 
 In this example, we're going to be running an [RSpec](https://github.com/rspec/rspec) test suite.
-Like most RSpec test suites, let's assume ours is stored in the `spec/` directory (that's the RSpec default too). Let's furthermore assume our code is stored in the `lib` directory. To run the test suite in `spec/` and add type definitions to our files in `lib/`, we might run the following command:
+Like most RSpec test suites, let's assume ours is stored in the `spec/` directory (that's the RSpec default too). To run the test suite in `spec/` and add type definitions to our ruby files, we might run the following command:
 
 ```bash
 gelauto run --annotate $(find . -name '*.rb') -- bundle exec rspec spec/
 ```
 
-You can also choose to run Gelauto with the `--rbi` flag, which will cause Gelauto to print results to standard output or to a file in [RBI format](https://sorbet.org/docs/rbi):
+You can also choose to run Gelauto with the `--rbi` flag, which will cause Gelauto to print results to standard output or to the given file in [RBI format](https://sorbet.org/docs/rbi):
 
 ```bash
 # print RBI output to STDOUT
