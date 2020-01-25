@@ -80,15 +80,16 @@ describe Gelauto do
     end
   end
 
-  context 'does not double add sigs' do
+  context 'with existing signatures' do
     before do
       Gelauto.discover do
         @request = GelautoSpecs::Request.new
-        @request.to_a("Hello", "World")
+        @request.to_a('Hello', 'World')
         @request.to_s(100)
       end
     end
-    it "does not double add sigs but adds new one" do
+
+    it 'skips existing sig, adds missing sig' do
       file = File.read('spec/support/annotated.rb')
       expect(file.lines.count).to eq(17)
       # does not add a signature to the method with an existing signature

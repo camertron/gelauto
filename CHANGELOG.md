@@ -1,3 +1,6 @@
+# 2.1.0
+* Do not add duplicate signatures to methods (@wpride, #15).
+
 # 2.0.0
 * Fix emission of `T::Array`, `T::Hash`, and `T.any` types (@wpride, #14).
 * BREAKING: Add ability to write RBI output to a file via the `--rbi` flag. `--rbi` used to be a switch, but now it's a flag that accepts either a file path or `-` for STDOUT.
