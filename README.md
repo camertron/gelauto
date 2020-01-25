@@ -147,7 +147,6 @@ Gelauto makes use of Ruby's [TracePoint API](https://ruby-doc.org/core-2.6/Trace
 
 * Half-baked support for singleton (i.e. static) methods.
 * Gelauto does not annotate Ruby files with `# typed: true` comments or `extend T::Sig`.
-* Gelauto ignores existing type signatures and will simply add another one right above the method.
 
 ## Running Tests
 
