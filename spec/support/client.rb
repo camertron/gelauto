@@ -1,3 +1,5 @@
+require 'sorbet-runtime'
+
 module GelautoSpecs
   class Response
     attr_reader :status, :body

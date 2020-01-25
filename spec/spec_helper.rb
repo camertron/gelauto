@@ -20,6 +20,11 @@ RSpec.configure do |config|
         path, lineno = obj.method(method_name).source_location
         Gelauto.method_index.find(path, lineno)
       end
+
+      def annotate(obj, method_name, code)
+        path, _lineno = obj.method(method_name).source_location
+        Gelauto.method_index.annotate(path, code)
+      end
     end
   )
 end
