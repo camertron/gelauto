@@ -126,13 +126,13 @@ require 'gelauto/rspec'
 to your spec_helper.rb, Rakefile, or wherever RSpec is configured. You'll also need to set the `GELAUTO_FILES` environment variable when running your test suite. For example:
 
 ```bash
-GELAUTO_FILES=$(find ./lib -name *.rb) bundle exec rspec
+GELAUTO_FILES=$(find . -name *.rb) bundle exec rspec
 ```
 
 Files can be separated by spaces, newlines, or commas. If you want Gelauto to annotate them, set `GELAUTO_ANNOTATE` to `true`, eg:
 
 ```bash
-GELAUTO_FILES=$(find ./lib -name *.rb) GELAUTO_ANNOTATE=true bundle exec rspec
+GELAUTO_FILES=$(find . -name *.rb) GELAUTO_ANNOTATE=true bundle exec rspec
 ```
 
 Finally, set `GELAUTO_RBI=/path/to/output.rbi` to have Gelauto emit an RBI file when the test suite finishes.
