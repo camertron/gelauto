@@ -24,6 +24,24 @@ module GelautoSpecs
       Response.new(200, 'it worked!')
     end
   end
+
+  class Utility
+    def self.safe_to_string(input)
+      if input.nil?
+        ''
+      else
+        input.to_s
+      end
+    end
+
+    def self.safe_get_keys(input)
+      if input.nil?
+        []
+      else
+        input.keys
+      end
+    end
+  end
 end
 
 Gelauto.paths << __FILE__

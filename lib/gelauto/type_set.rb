@@ -53,8 +53,10 @@ module Gelauto
         'T.untyped'
       elsif sigs.size == 1
         sigs.first
+      elsif nilable
+        "T.nilable(T.any(#{sigs.join(', ')}))"
       else
-        "T.#{nilable ? 'nilable' : 'any'}(#{sigs.join(', ')})"
+        "T.any(#{sigs.join(', ')})"
       end
     end
   end

@@ -15,7 +15,7 @@ module Gelauto
 
     def to_sig
       if self[:key].empty? && self[:value].empty?
-        'T::Hash'
+        'T::Hash[T.untyped, T.untyped]'
       else
         "T::Hash[#{self[:key].to_sig}, #{self[:value].to_sig}]"
       end
