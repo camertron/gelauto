@@ -43,7 +43,9 @@ module Gelauto
         if rt == ::NilClass
           nilable = true
         else
-          ret << t.to_sig
+          t.to_sig.tap do |s|
+            ret << s if s
+          end
         end
       end
 

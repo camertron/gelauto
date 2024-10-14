@@ -17,10 +17,16 @@ module Gelauto
 
           if ast.type == :def
             name = ast.children[0]
-            args = ast.children[1].children.map { |c| c.children.first }
+            args = ast.children[1].children.each_with_object([]) do |c, memo|
+              # ignore anonymous args like **, etc
+              memo << c.children.first if c.children.first
+            end
           else
             name = ast.children[1]
-            args = ast.children[2].children.map { |c| c.children.first }
+            args = ast.children[2].children.each_with_object([]) do |c, memo|
+              # ignore anonymous args like **, etc
+              memo << c.children.first if c.children.first
+            end
           end
 
           md = MethodDef.new(name, args, nesting)

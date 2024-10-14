@@ -1,3 +1,12 @@
+# 2.2.0
+A number of bug fixes and improvements, namely:
+
+1. Fix handling of anonymous kwargs.
+2. Fix formatting for nested classes when the parent class has methods.
+3. Upgrade to v3.0 of the parser gem.
+4. For certain types, the class name cannot be used as a type (eg. anonymous classes). Use `T.untyped` in these cases.
+5. Add better support for Minitest via `require 'gelauto/minitest'`. This allows you to add Gelauto directly to your test setup, which works better than using the CLI for some projects.
+
 # 2.1.0
 * Do not add duplicate signatures to methods (@wpride, #15).
 

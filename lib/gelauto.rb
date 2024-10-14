@@ -92,7 +92,7 @@ module Gelauto
           )
 
           Gelauto::Logger.info("Indexed #{idx + 1}/#{paths.size} paths")
-        rescue Parser::SyntaxError => e
+        rescue Parser::SyntaxError
           Gelauto::Logger.error("Syntax error in #{path}, skipping")
         end
       end

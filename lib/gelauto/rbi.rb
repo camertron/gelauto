@@ -31,7 +31,7 @@ module Gelauto
       io.write(indent(h[:methods].map { |md| md.to_rbi }.join("\n\n"), indent_level))
 
       h[:children].each_with_index do |((namespace, type), next_level), idx|
-        io.write("\n\n") if idx > 0
+        io.write("\n\n") if idx > 0 || h[:methods].size > 0
         io.write(indent("#{type} #{namespace}", indent_level))
         io.write("\n")
         compose(next_level, io, indent_level + 1)

@@ -137,6 +137,16 @@ GELAUTO_FILES=$(find . -name *.rb) GELAUTO_ANNOTATE=true bundle exec rspec
 
 Finally, set `GELAUTO_RBI=/path/to/output.rbi` to have Gelauto emit an RBI file when the test suite finishes.
 
+#### Minitest Helper
+
+Gelauto also comes with a handy Minitest helper. Simply add
+
+```ruby
+require 'gelauto/minitest'
+```
+
+to your test_helper.rb (or wherever Minitest is `require`d and configured). The same environment variables described above for RSpec, eg. `GELAUTO_FILES`, `GELAUTO_ANNOTATE`, and `GELAUTO_RBI`, can be used in a Minitest setup.
+
 ## How does it Work?
 
 Gelauto makes use of Ruby's [TracePoint API](https://ruby-doc.org/core-2.6/TracePoint.html). TracePoint effectively allows Gelauto to receive a notification whenever a Ruby method is called and whenever a method returns. That info combined with method location information gathered from parsing your Ruby files ahead of time allows Gelauto to know a) where methods are located, 2) what arguments they take, 3) the types of those arguments, and 4) the type of the return value.

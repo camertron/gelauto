@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = s.summary = 'Automatically annotate your code with Sorbet type definitions.'
   s.platform = Gem::Platform::RUBY
 
-  s.add_dependency 'parser', '~> 2.6'
+  s.add_dependency 'parser', '~> 3.0'
   s.add_dependency 'gli', '~> 2.0'
 
   s.executables << 'gelauto'
